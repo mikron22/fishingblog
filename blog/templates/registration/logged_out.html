@@ -1,0 +1,14 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<div class="col-6 mx-auto">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h4 class="card-title">Wylogowano</h4>
+        </div>
+        <div class="card-body">
+            <p class="card-text">Dziękujemy za spędzenie cennego czasu na stronie.</p>
+            <a href="{% url 'login' %}" class="card-link">Zaloguj ponownie</a>
+        </div>
+    </div>
+</div>   
+{% endblock %}

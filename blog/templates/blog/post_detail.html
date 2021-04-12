@@ -1,0 +1,67 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<div class="col-12 card border-secondary mb-3 p-0">
+    <div class="card-header d-flex">
+        <a class="text-primary card-link" href="{% url 'profile-detail' post.created_by.pk %}">
+            <img class="mr-1" src="{{ post.created_by.userprofile.image.url }}" width="50px" height="50px" />
+            <br/>
+            {{ post.created_by.username }}
+        </a>
+        <h1 class="card-link text-black text-truncate p-0 mx-auto my-auto">{{post.title}}</h1>
+    </div>
+    <div class="card-body" >
+        {% if post.image %}
+        <div class="my-4 d-flex">
+            <img class="mx-auto" style="max-height:800px; max-width:100%;" src="{{ post.image.url }}" />
+        </div>
+        {% endif %}
+        <div class="px-3">
+            <p class="card-text">{{ post.text|linebreaks }}</p>
+        </div>
+        <div class="d-flex">
+            <small class="text-muted mt-1 ml-auto">{{ post.created_at }}</small>
+        </div>
+    </div>
+    <div class="card-footer">
+        <h4 class="my-3">Dyskusja</h4>
+        {% if not post.comment_set.all %}
+        <p class="card-text">Nie ma jeszcze żadnych komentarzy, rozpocznij dyskusję</p>
+        {% endif %}
+    </div>
+    <form class="card-body" method="POST">
+        {% csrf_token %}
+        <fieldset>
+            <div class="form-group {% if form.text.errors %}has-danger{% endif %}">
+                <label class="col-form-label col-form-label-lg" for="{{ form.text.id_for_label }}">{{ form.text.label }}</label>
+                <textarea
+                    style="max-width: 60%;"
+                    {% if form.text.value %}value="{{ form.text.value }}" {% endif %}
+                    class="form-control{% if form.text.errors %} is-invalid{% endif %}" 
+                    id="{{ form.text.id_for_label }}"
+                    name="{{ form.text.html_name }}"
+                    rows="8"></textarea>
+                {% for error in form.text.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Dodaj</button>
+        </div>
+    </form>
+    {% for comment in post.comment_set.all %}
+    <div class="card bg-light mx-3 my-1">
+        <div class="card-header d-flex">
+            <a class="text-primary card-link mr-auto" href="{% url 'profile-detail' comment.created_by.pk %}">
+                <img class="mr-1" src="{{ comment.created_by.userprofile.image.url }}" width="20px" height="20px" />
+                {{ comment.created_by.username }}
+            </a>
+            <small class="text-muted mt-1 ml-auto">{{ comment.created_at }}</small>
+        </div>
+        <div class="card-body py-2">
+            <p class="card-text">{{ comment.text|linebreaks }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

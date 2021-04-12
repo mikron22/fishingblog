@@ -1,0 +1,16 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<div class="card col-10 p-0">
+    <div class="card-header">
+        <h1>{{ userprofile.user.username }}</h1>
+    </div>
+    <div class="card-body row">
+        <img class="m-4" src="{{ userprofile.image.url }}" width="240px" height="240px"/>
+        <div class="m-4">
+            <h4>Liczba utworzonych postów: <strong>{{ userprofile.user.post_set.count }}</strong></h4>
+            <br />
+            <h4>Liczba dodanych komentarzy: <strong>{{ userprofile.user.comment_set.count }}</strong></h4>
+        </div>
+    </div>
+</div>
+{% endblock %}

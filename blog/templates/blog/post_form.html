@@ -1,0 +1,52 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<div class="col-8">
+    <h2 class="title">Utwórz wpis</h4>
+    <form enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        <fieldset>
+            <div class="form-group {% if form.title.errors %}has-danger{% endif %}">
+                <label class="col-form-label col-form-label-lg" for="{{ form.title.auto_id }}">{{ form.title.label }}</label>
+                <input 
+                    type="text" 
+                    {% if form.title.value %}value="{{ form.title.value }}" {% endif %}
+                    class="form-control{% if form.title.errors %} is-invalid{% endif %}" 
+                    id="{{ form.title.auto_id }}"
+                    name="{{ form.title.html_name }}"
+                    maxlength="200">
+                {% for error in form.title.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <div class="form-group {% if form.text.errors %}has-danger{% endif %}">
+                <label class="col-form-label col-form-label-lg" for="{{ form.text.auto_id }}">{{ form.text.label }}</label>
+                <textarea 
+                    {% if form.text.value %}value="{{ form.text.value }}" {% endif %}
+                    class="form-control{% if form.text.errors %} is-invalid{% endif %}" 
+                    id="{{ form.text.auto_id }}"
+                    name="{{ form.text.html_name }}"
+                    rows="8"></textarea>
+                {% for error in form.text.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <div class="form-group {% if form.image.errors %}has-danger{% endif %}">
+                <label class="col-form-label col-form-label-lg" for="{{ form.image.auto_id }}">{{ form.image.label }}</label>
+                <input 
+                    type="file" 
+                    {% if form.image.value %}value="{{ form.image.value }}" {% endif %}
+                    class="form-control-file{% if form.image.errors %} is-invalid{% endif %}" 
+                    id="{{ form.image.auto_id }}"
+                    name="{{ form.image.html_name }}" 
+                    accept="image/*">
+                {% for error in form.image.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            </div>
+        </fieldset>
+        <div class="form-group text-center">
+            <button class="btn btn-primary" type="submit">Utwórz</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

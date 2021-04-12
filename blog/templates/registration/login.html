@@ -1,0 +1,36 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<div class="col-6 mx-auto">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h4 class="card-title">Logowanie</h4>
+        </div>
+        <form class="card-body" method="POST">
+            {% csrf_token %}
+            <fieldset>
+                {% for field in form %}
+                    <div class="form-group {% if field.errors %}has-danger{% endif %}">
+                        <label class="col-form-label col-form-label-lg"for="{{ field.auto_id }}">{{ field.label }}</label>
+                        <input 
+                            type="{{ field.field.widget.input_type }}" 
+                            {% if field.value %}value="{{ field.value }}" {% endif %}
+                            class="form-control {% if field.errors %}is-invalid{% endif %}" 
+                            id="{{ field.auto_id }}"
+                            name="{{ field.html_name }}" 
+                            {% if field.field.widget.input_type == 'file' %}accept="image/*"{% endif %}>
+                        {% for error in field.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                        {% if field.help_text %}
+                            <small class="form-text text-muted">{{field.help_text}}</small>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </fieldset>
+            <div class="form-group text-center">
+                <button class="btn btn-primary" type="submit">Zaloguj</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

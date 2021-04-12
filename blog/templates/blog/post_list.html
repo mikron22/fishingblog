@@ -1,0 +1,40 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<div class="col-10">
+    {% if user.is_superuser %}
+    <a class="btn btn-primary mb-3" href="{% url 'post-create' %}">Nowy wpis</a>
+    {% endif %}
+    {% for post in object_list %}
+    <div class="card border-secondary mb-3">
+        <div class="card-header d-flex">
+            <a class="col-10 mr-auto card-link text-primary text-truncate p-0" href="{% url 'post-detail' post.pk %}">
+                <h2>{{ post.title }}</h2>
+            </a>
+            <a class="text-primary card-link" href="{% url 'profile-detail' post.created_by.pk %}">
+                <img class="mr-1" src="{{ post.created_by.userprofile.image.url }}" width="20px" height="20px" />
+                {{ post.created_by.username }}
+            </a>
+        </div>
+        <div class="card-body" >
+            {% if post.image %}
+            <div class="my-4 d-flex">
+                <img class="mx-auto" style="max-height:500px; max-width:100%;" src="{{ post.image.url }}" />
+            </div>
+            {% endif %}
+            <div class="px-3">
+                <p class="card-text">{{ post.text|linebreaks }}</p>
+            </div>
+        </div>
+        <div class="card-footer d-flex">
+            {% if post.comment_set.all %}
+            <a class="mr-auto" href="{% url 'post-detail' post.pk %}">Pokaż komentarze ({{ post.comment_set.count }})</a>
+            {% else %}
+            <a class="mr-auto" href="{% url 'post-detail' post.pk %}">Rozpocznij konwersacjię</a>
+            {% endif %}
+            <small class="mt-1 mr-1">Dodano</small>
+            <small class="text-muted mt-1">{{ post.created_at }}</small>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
