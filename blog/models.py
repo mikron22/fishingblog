@@ -10,7 +10,7 @@ class Post(models.Model):
     title = models.CharField(max_length=200, verbose_name="Tytuł")
     text = models.TextField(max_length=1000, verbose_name="Treść")
     created_at = models.DateTimeField(auto_now_add=True)
-    image = ResizedImageField(size=[800, 800], upload_to='images/', force_format="jpeg", verbose_name="Zdjęcie (opcjonalne)", null=True)
+    image = ResizedImageField(size=[800, 800], upload_to='images/', force_format="jpeg", verbose_name="Zdjęcie (opcjonalne)", null=True, blank=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Comment(models.Model):
