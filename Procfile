@@ -1,1 +1,1 @@
-web: gunicorn jsfishingblog.wsgi --log-file -
+web: gunicorn fishingblog.wsgi --log-file -
