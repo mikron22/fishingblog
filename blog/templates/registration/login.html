@@ -30,11 +30,11 @@
             <div class="form-group text-center">
                 <button class="btn btn-primary" type="submit">Zaloguj</button>
             </div>
+            <small class="text-muted mt-3">
+                Nie masz jeszcze konta?
+                <a class="card-link ml-1" href="{% url 'register' %}">Dołącz teraz</a>
+            </small>
         </form>
-        <small class="text-muted mt-3">
-            Nie masz jeszcze konta?
-            <a class="card-link ml-1" href="{% url 'register' %}">Dołącz teraz</a>
-        </small>
     </div>
 </div>
 {% endblock %}
