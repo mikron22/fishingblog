@@ -25,7 +25,7 @@ SECRET_KEY = 'gk2y)aigr68#!xqm^ntbmsh_87-8!wgqtm&14c%+&5v#+_+(l8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', ""]
+ALLOWED_HOSTS = ['127.0.0.1', "jsfishingblog.herokuapp.com"]
 
 
 # Application definition
