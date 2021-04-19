@@ -13,6 +13,9 @@ class Post(models.Model):
     image = ResizedImageField(size=[800, 800], upload_to='images/', force_format="jpeg", verbose_name="Zdjęcie (opcjonalne)", null=True, blank=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    class Meta:
+        verbose_name = 'Wpisy'
+
 class Comment(models.Model):
     text = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -21,10 +24,14 @@ class Comment(models.Model):
     
     class Meta:
         ordering = ["-created_at"]
+        verbose_name = 'Komentarze'
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = ResizedImageField(size=[240, 240], null=True, upload_to='images/', force_format="jpeg", default="default.jpg")
+
+    class Meta:
+        verbose_name = "Profile użytkownika"
 
 
 @receiver(post_save, sender=User)
